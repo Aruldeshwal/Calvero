@@ -260,8 +260,6 @@ export function AvailabilityCalendar({
     return {};
   };
 
-  
-
   return (
     <div className="relative h-[calc(100vh-180px)] min-h-100 sm:min-h-150">
       {/* Booking Details Dialog */}
@@ -449,7 +447,8 @@ export function AvailabilityCalendar({
         timeslots={CALENDAR_CONFIG.timeslots}
         slotPropGetter={slotPropGetter}
         dayPropGetter={dayPropGetter}
-        components={{ toolbar: (props) => (
+        components={{
+          toolbar: (props) => (
             <ToolbarWithActions
               {...props}
               onCopyDayToWeek={(dayIndex, includeWeekends) =>
@@ -457,7 +456,8 @@ export function AvailabilityCalendar({
               }
               onClearWeek={() => clearWeek(date)}
             />
-          ), }}
+          ),
+        }}
       />
     </div>
   );

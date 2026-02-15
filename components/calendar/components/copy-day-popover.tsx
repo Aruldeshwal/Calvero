@@ -1,9 +1,7 @@
 "use client";
 
-
-import { useId } from "react";
 import { Copy } from "lucide-react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -64,7 +62,7 @@ export function CopyDayPopover({ onCopy }: CopyDayPopoverProps) {
               <Label htmlFor="day-select">Select day</Label>
               <Select value={selectedDay} onValueChange={setSelectedDay}>
                 <SelectTrigger id={daySelectId}>
-                    <SelectValue />
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   {DAYS_OF_WEEK.map((day, index) => (
@@ -77,11 +75,11 @@ export function CopyDayPopover({ onCopy }: CopyDayPopoverProps) {
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
-                    id={includeWeekendsId}
-                    checked={includeWeekends}
-                    onCheckedChange={(checked) =>
-                      setIncludeWeekends(checked === true)
-                    }
+                id={includeWeekendsId}
+                checked={includeWeekends}
+                onCheckedChange={(checked) =>
+                  setIncludeWeekends(checked === true)
+                }
               />
               <Label htmlFor="include-weekends" className="text-sm font-normal">
                 Include weekends

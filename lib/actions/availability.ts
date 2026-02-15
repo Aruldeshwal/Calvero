@@ -1,24 +1,24 @@
 "use server";
 
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { startOfMonth, endOfMonth } from "date-fns";
+import { endOfMonth, startOfMonth } from "date-fns";
 import { defineQuery } from "next-sanity";
-import { writeClient } from "@/sanity/lib/writeClient";
+import type { TimeBlock } from "@/components/calendar/types";
+import type { BookingQuotaStatus } from "@/lib/features";
+import { getUserPlan, PLAN_LIMITS } from "@/lib/features";
+import { generateSlug, getBaseUrl } from "@/lib/url";
 import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
+import { writeClient } from "@/sanity/lib/writeClient";
+import {
+  HOST_ID_BY_CLERK_ID_QUERY,
+  MEETING_TYPES_BY_HOST_QUERY,
+  type MeetingTypeForHost,
+} from "@/sanity/queries/meetingTypes";
 import {
   USER_ID_BY_CLERK_ID_QUERY,
   USER_SLUG_QUERY,
 } from "@/sanity/queries/users";
-import {
-  MEETING_TYPES_BY_HOST_QUERY,
-  HOST_ID_BY_CLERK_ID_QUERY,
-  type MeetingTypeForHost,
-} from "@/sanity/queries/meetingTypes";
-import { generateSlug, getBaseUrl } from "@/lib/url";
-import { PLAN_LIMITS, getUserPlan } from "@/lib/features";
-import type { TimeBlock } from "@/components/calendar/types";
-import type { BookingQuotaStatus } from "@/lib/features";
 
 // Get or create user document by Clerk ID
 export async function getOrCreateUser(clerkId: string) {
@@ -57,7 +57,7 @@ export async function getOrCreateUser(clerkId: string) {
  * Returns the new blocks with their real IDs from Sanity
  */
 export async function saveAvailability(
-  blocks: TimeBlock[]
+  blocks: TimeBlock[],
 ): Promise<Array<{ id: string; start: string; end: string }>> {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
@@ -226,7 +226,7 @@ export async function createMeetingType(data: {
  * Get or create the user's booking link with meeting type
  */
 export async function getBookingLinkWithMeetingType(
-  meetingTypeSlug: string
+  meetingTypeSlug: string,
 ): Promise<{
   url: string;
 }> {

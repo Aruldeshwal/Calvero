@@ -12,7 +12,7 @@ import {
   Share2,
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useTransition } from "react";
+import { useId, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -40,7 +40,6 @@ import {
 } from "@/lib/actions/availability";
 import type { BookingQuotaStatus } from "@/lib/features";
 import type { MeetingTypeForHost } from "@/sanity/queries/meetingTypes";
-import { useId } from "react";
 
 type MeetingDuration = 15 | 30 | 45 | 60 | 90;
 
@@ -246,13 +245,13 @@ export function ShareLinkDialog() {
             ) : isCreatingType ? (
               <div className="space-y-4">
                 <div className="space-y-2">
-                    <Label htmlFor={meetingNameId}>Meeting Name</Label>
-                    <Input
-                        id={meetingNameId}
-                        placeholder="e.g., Quick Chat, Consultation"
-                        value={newTypeName}
-                        onChange={(e) => setNewTypeName(e.target.value)}
-                    />
+                  <Label htmlFor={meetingNameId}>Meeting Name</Label>
+                  <Input
+                    id={meetingNameId}
+                    placeholder="e.g., Quick Chat, Consultation"
+                    value={newTypeName}
+                    onChange={(e) => setNewTypeName(e.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="meeting-duration">Duration</Label>
@@ -263,7 +262,7 @@ export function ShareLinkDialog() {
                     }
                   >
                     <SelectTrigger id={meetingDurationId}>
-                    <SelectValue placeholder="Select duration" />
+                      <SelectValue placeholder="Select duration" />
                     </SelectTrigger>
                     <SelectContent>
                       {DURATION_OPTIONS.map((option) => (
